@@ -1,0 +1,33 @@
+name: validate-only
+description: >
+  Validate an existing name and deliver a verdict without generating alternatives.
+  Use when the founder wants an honest assessment and is prepared to decide on keep vs.
+  replace themselves, or when the name is likely to be kept and only needs a scaffolding brief.
+
+steps:
+  - id: setup
+    skill: onboarding
+    source: SETUP.md
+    output: config/profile.md
+    condition: "profile does not exist"
+
+  - id: brief
+    skill: intake
+    description: "Confirm naming context and produce naming-brief.md"
+    output: naming/naming-brief.md
+    inputs:
+      - config/profile.md
+
+  - id: validate
+    skill: name-validate
+    description: "Evaluate the working name across the six dimensions"
+    output: naming/name-assessment.md
+    inputs:
+      - naming/naming-brief.md
+      - config/profile.md
+
+  - id: close
+    description: "Present verdict and offer next step"
+    note: >
+      If verdict is Replace, offer to run the new-name workflow.
+      If verdict is Keep, deliver the scaffolding brief and suggest what to do next.

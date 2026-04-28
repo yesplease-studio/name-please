@@ -1,0 +1,61 @@
+name: new-name
+description: >
+  Full naming engagement workflow. Validates an existing working name, delivers a verdict,
+  then generates alternatives if the verdict is Replace. Use this when a founder has a name
+  and wants a complete assessment and options.
+
+steps:
+  - id: setup
+    skill: onboarding
+    source: SETUP.md
+    output: config/profile.md
+    condition: "profile does not exist"
+    description: "Create company profile if none exists"
+
+  - id: brief
+    skill: intake
+    description: "Confirm naming context and produce naming-brief.md"
+    output: naming/naming-brief.md
+    inputs:
+      - config/profile.md
+
+  - id: validate
+    skill: name-validate
+    description: "Evaluate the working name across the six dimensions"
+    output: naming/name-assessment.md
+    inputs:
+      - naming/naming-brief.md
+      - config/profile.md
+
+  - id: route
+    description: "Branch based on validation verdict"
+    branches:
+      replace:
+        condition: "verdict is Replace"
+        next: generate
+      keep_scaffolding:
+        condition: "verdict is Keep with scaffolding"
+        next: scaffolding_brief
+      keep_execution:
+        condition: "verdict is Keep with execution"
+        next: execution_brief
+
+  - id: generate
+    skill: name-generate
+    description: "Generate ranked naming alternatives"
+    output: naming/name-candidates.md
+    inputs:
+      - naming/naming-brief.md
+      - naming/name-assessment.md
+      - config/profile.md
+
+handoffs:
+  - to: voice-please
+    when: "Name is finalized and voice system work has not been done"
+    artifact: naming/name-candidates.md
+    note: "The chosen name becomes context for voice-please's discovery phase"
+
+  - to: design-please
+    when: "Name is finalized and visual identity work has not been done"
+    artifact: naming/name-candidates.md
+    note: "Name and design direction should be developed together"
