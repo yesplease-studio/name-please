@@ -126,7 +126,7 @@ name-please/
 
 ## The please family
 
-name-please is one of six open-source frameworks from Yes Please Studio:
+name-please is one of seven open-source frameworks from Yes Please Studio:
 
 | Framework | What it does | Core question |
 |-----------|-------------|---------------|
@@ -136,6 +136,7 @@ name-please is one of six open-source frameworks from Yes Please Studio:
 | [voice-please](https://github.com/yesplease-studio/voice-please) | Voice system definition and encoding | "What should we sound like?" |
 | [design-please](https://github.com/yesplease-studio/design-please) | Design direction and encoding | "What should it look, feel, and act like?" |
 | **name-please** | Name validation and generation | "Is this the right name?" |
+| [messaging-please](https://github.com/yesplease-studio/messaging-please) | Messaging architecture and GTM narrative | "What do we say, and to whom?" |
 
 name-please integrates tightly with voice-please (voice direction is a direct input to naming) and hands off naturally to design-please (name and visual identity should be developed together).
 
